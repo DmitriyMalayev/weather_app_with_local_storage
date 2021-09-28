@@ -1,4 +1,4 @@
-const cityForm = document.querySelector("form");  //app.js
+const cityForm = document.querySelector("form"); //app.js
 const card = document.querySelector(".card");
 const details = document.querySelector(".details");
 const time = document.querySelector("img.time");
@@ -33,7 +33,7 @@ const updateUI = (data) => {
   }
 };
 const updateCity = async (city) => {
-  const cityDets = await getCity(city);  //line 44 expected end of input
+  const cityDets = await getCity(city); //line 44 expected end of input
   const weather = await getWeather(cityDets.Key);
 
   return {
@@ -49,4 +49,31 @@ cityForm.addEventListener("submit", (event) => {
   updateCity(city)
     .then((data) => updateUI(data))
     .catch((err) => console.log(err));
+  //Set Local Storage
+  localStorage.setItem("city", city);
+  
 });
+
+
+//Will only run if city is found. 
+//returns a promise or throws an error
+if (localStorage.getItem("city")) {
+  updateCity(localStorage.getItem("city")).then((data) => updateUI(data)).catch((err) => console.log(err));
+   
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
