@@ -8,12 +8,12 @@ const updateUI = (data) => {
   const { cityDets, weather } = data;
 
   details.innerHTML = `
-          <h5 class="my-3">${cityDets.EnglishName}</h5>
-          <div class="my-3">${weather.WeatherText}</div>
-          <div class="display-4 my-4">
-            <span>${weather.Temperature.Metric.Value}</span>
-            <span>&deg;C</span>
-          </div>
+    <h5 class="my-3">${cityDets.EnglishName}</h5>
+    <div class="my-3">${weather.WeatherText}</div>
+    <div class="display-4 my-4">
+      <span>${weather.Temperature.Metric.Value}</span>
+      <span>&deg;C</span>
+    </div>
   `;
 
   const iconSrc = `../img/icons/${weather.WeatherIcon}.svg`;
@@ -33,14 +33,11 @@ const updateUI = (data) => {
   }
 };
 const updateCity = async (city) => {
-  const cityDets = await getCity(city); //line 44 expected end of input
+  const cityDets = await getCity(city); //line 44 
   const weather = await getWeather(cityDets.Key);
+  return {cityDets, weather};
+}
 
-  return {
-    cityDets,
-    weather,
-  };
-};
 cityForm.addEventListener("submit", (event) => {
   event.preventDefault();
   const city = cityForm.city.value.trim();
@@ -62,18 +59,3 @@ if (localStorage.getItem("city")) {
    
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
