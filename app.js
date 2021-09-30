@@ -3,6 +3,7 @@ const card = document.querySelector(".card");
 const details = document.querySelector(".details");
 const time = document.querySelector("img.time");
 const icon = document.querySelector(".icon img");
+const forecast = new Forecast();
 
 const updateUI = (data) => {
   const { cityDets, weather } = data;
@@ -32,28 +33,25 @@ const updateUI = (data) => {
     card.classList.remove("d-none");
   }
 };
-const updateCity = async (city) => {
-
-}
 
 cityForm.addEventListener("submit", (event) => {
   event.preventDefault();
   const city = cityForm.city.value.trim();
   cityForm.reset();
 
-  updateCity(city)
+  forecast //calling it on the instance of the Forecast class
+    .updateCity(city)
     .then((data) => updateUI(data))
     .catch((err) => console.log(err));
   //Set Local Storage
   localStorage.setItem("city", city);
-  
 });
 
-
-//Will only run if city is found. 
+//Will only run if city is found.
 //returns a promise or throws an error
 if (localStorage.getItem("city")) {
-  updateCity(localStorage.getItem("city")).then((data) => updateUI(data)).catch((err) => console.log(err));
-   
-
+  forecast
+    .updateCity(localStorage.getItem("city"))
+    .then((data) => updateUI(data))
+    .catch((err) => console.log(err));
 }
