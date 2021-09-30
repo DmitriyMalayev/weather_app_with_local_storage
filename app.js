@@ -17,6 +17,9 @@ const updateUI = (data) => {
     </div>
   `;
 
+  if (card.classList.contains("d-none")) {
+    card.classList.remove("d-none");
+  }
   const iconSrc = `../img/icons/${weather.WeatherIcon}.svg`;
   icon.setAttribute("src", iconSrc);
 
@@ -28,10 +31,6 @@ const updateUI = (data) => {
   }
 
   time.setAttribute("src", timeSrc);
-
-  if (card.classList.contains("d-none")) {
-    card.classList.remove("d-none");
-  }
 };
 
 cityForm.addEventListener("submit", (event) => {
@@ -43,15 +42,14 @@ cityForm.addEventListener("submit", (event) => {
     .updateCity(city)
     .then((data) => updateUI(data))
     .catch((err) => console.log(err));
-  //Set Local Storage
-  localStorage.setItem("city", city);
+  localStorage.setItem("city", city); //Set Local Storage
 });
 
-//Will only run if city is found.
-//returns a promise or throws an error
 if (localStorage.getItem("city")) {
   forecast
     .updateCity(localStorage.getItem("city"))
     .then((data) => updateUI(data))
     .catch((err) => console.log(err));
 }
+//Will only run if city is found.
+//returns a promise or throws an error
